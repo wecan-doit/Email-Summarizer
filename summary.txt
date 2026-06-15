@@ -1,0 +1,25 @@
+### System Implementation Summary
+
+**`pilot_main.py` - Main Orchestrator**
+This script runs the entire process from start to finish. It orchestrates fetching emails, summarizing content, and creating the final document, while also handling errors gracefully and logging each step.
+
+**`fetch_unread.py` - Email Fetcher**
+Connects to the Gmail API to retrieve a set number of unread emails from whitelisted senders. It extracts key metadata like the sender, subject, and the newsletter's source URL.
+Thinkg >> When at the time of fetching i would like it to only fetch the new emails with last 48 hours for the given whishlist.txt.
+Takes the content of an email and sends it to the Gemini AI model. It uses a detailed prompt to request a structured JSON summary, including key points, sentiment, and tags.
+
+**`append_to_doc.py` - Document Writer**
+This tool handles all interactions with Google Docs. It is responsible for creating the new daily digest document and appending each AI-generated summary with proper formatting.
+
+**`web_extractor.py` - Web Scraper**
+When an email contains only a short snippet of text, this utility attempts to follow a 'Read More' link to download and extract the full article content from the source website.
+
+**`google_auth_util.py` - Authentication Utility**
+Provides a single, centralized function for securely connecting to all Google APIs (Gmail and Docs). This eliminates redundant code and simplifies API access.
+
+**`.env` / Configuration**
+This file stores all configuration variables for the system. It allows us to easily change parameters like the AI model, the number of emails to fetch, and API keys without modifying the code.
+
+**`requirements.txt` - Dependencies**
+Lists all external Python libraries that the project depends on. This ensures that the system can be set up reliably in any environment.
+
